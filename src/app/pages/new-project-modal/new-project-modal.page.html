@@ -1,9 +1,27 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>newProjectModal</ion-title>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-button color="primary" (click)="cancel()" slot="start" fill="clear">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>ADD PROJECT</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="save()" [disabled]="project.name == ''"  slot="end" fill="clear">Done</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-item lines="none">
+    <ion-input [(ngModel)]="project.name" type="text" placeholder="Name of Project"></ion-input>
+  </ion-item>
+  <ion-item button (click)="showColor = !showColor" detail="false" class="ion-padding-bottom" lines="none">
+    <ion-icon name="color-palette-outline" slot="start"></ion-icon>
+    <ion-label>Color</ion-label>
+    <div class="color-preview" slot="end" [style.baclground]="project.color" ></div>
+
+  </ion-item>
+  <div class="ion-padding">
+    <color-circle width="100%" *ngIf="showColor" [color]="project.color" (onChange)="colorSelected($event)" ></color-circle>
+  </div>
 
 </ion-content>

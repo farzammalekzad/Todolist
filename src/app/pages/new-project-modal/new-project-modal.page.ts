@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {ModalController} from '@ionic/angular';
+import {DataService, Project} from '../../service/data.service';
+import {ColorEvent} from "ngx-color";
 
 @Component({
   selector: 'app-new-project-modal',
@@ -7,9 +10,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewProjectModalPage implements OnInit {
 
-  constructor() { }
+  showColor = false;
+
+  project: Project = {
+    name: '',
+    color: '#01f2'
+  };
+
+  constructor(private modalCtrl: ModalController, private dataService: DataService) { }
 
   ngOnInit() {
+  }
+
+  async save() {
+    await this.dataService.addProject(this.project);
+    this.modalCtrl.dismiss({reload: true});
+
+  }
+
+  cancel() {
+    this.modalCtrl.dismiss();
+  }
+
+  async colorSelected(event: ColorEvent) {
+    this.project.color = event.color.hex;
   }
 
 }

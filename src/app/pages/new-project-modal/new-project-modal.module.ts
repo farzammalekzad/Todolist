@@ -7,13 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { NewProjectModalPageRoutingModule } from './new-project-modal-routing.module';
 
 import { NewProjectModalPage } from './new-project-modal.page';
+import { ColorCircleModule } from 'ngx-color/circle';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NewProjectModalPageRoutingModule
+    NewProjectModalPageRoutingModule,
+    ColorCircleModule
   ],
   declarations: [NewProjectModalPage]
 })

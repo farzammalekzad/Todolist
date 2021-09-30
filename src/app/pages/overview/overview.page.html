@@ -1,9 +1,47 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>overview</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>TODO LIST</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-backdrop *ngIf="showTaskInput"
+                [visible]="showTaskInput"
+                (ionBackdropTap)="showTaskInput = false">
+  </ion-backdrop>
+  <ion-list>
+    <ion-item-divider>
+      <ion-label>Projects</ion-label>
+      <ion-button (click)="addCategory()" slot="end" fill="clear">
+        <ion-icon name="add" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-item-divider>
+    <ion-item *ngFor="let proj of projects">
+      <ion-label>
+        {{proj.name}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="showTaskInput = true">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
+<ion-footer *ngIf="showTaskInput">
+  <ion-row>
+    <ion-col size="12">
+      <ion-input autofocus="true" [(ngModel)]="task.name" placeholder="Add a task"></ion-input>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="10">
+
+    </ion-col>
+    <ion-col size="2" class="ion-text-right ion-no-padding">
+      <ion-button (click)="saveTask()" fill="clear" shape="round">
+        <ion-icon name="arrow-up-circle-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

@@ -16,7 +16,7 @@ export interface Task {
   project?: number;
   id?: number;
   done?: boolean;
-  priority?: string;
+  priority?: number;
   due?: string;
 }
 
@@ -37,6 +37,17 @@ export class DataService {
     return this.getProjectAsArray();
   }
 
+  async addTask(task: Task) {
+    const initalTask = await this.getTaskAsArray();
+    task.id = Date.now();
+    initalTask.push(task);
+    return Storage.set({key: TASK_KEY, value: JSON.stringify(initalTask)});
+  }
+
+  async getTask() {
+    return this.getTaskAsArray();
+  }
+
   private async getProjectAsArray(addInbox = true) {
     const projects = await Storage.get({key: PROJECT_KEY});
     let projectArray = [];
@@ -52,5 +63,14 @@ export class DataService {
       });
     }
     return projectArray;
+  }
+
+  private async getTaskAsArray() {
+    const tasks = await Storage.get({key: TASK_KEY});
+    let taskArray = [];
+    if (tasks.value) {
+      taskArray = JSON.parse(tasks.value);
+    }
+    return taskArray;
   }
 }
