@@ -36,17 +36,17 @@ export class OverviewPage implements OnInit {
     const result = await modal.onDidDismiss();
     if (result && result.data && result.data.reload) {
       await this.loadData();
-      console.log(this.projects);
     }
   }
 
   async loadData() {
-    this.projects = await this.dataService.getProjects();
+    this.projects = await this.dataService.getTaskOverview();
+    console.log(this.projects);
   }
 
   async saveTask() {
     const fakeProject = this.task.project as any;
-    this.task.project = this.task.project ? fakeProject.id : null;
+    this.task.project = this.task.project ? fakeProject.id : 0;
     await this.dataService.addTask(this.task);
     console.log('task:',this.task);
     this.showTaskInput = false;
@@ -54,7 +54,7 @@ export class OverviewPage implements OnInit {
     this.task = {
       name: '',
       project: 0,
-      due: '',
+      due: new Date().toISOString(),
       priority: 4
     };
   }
@@ -90,7 +90,6 @@ export class OverviewPage implements OnInit {
 
   setTaskDue() {
     this.due.nativeElement.click();
-
   }
 
 }

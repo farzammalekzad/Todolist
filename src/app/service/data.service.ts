@@ -71,6 +71,23 @@ export class DataService {
     return priorities;
   }
 
+  async getTaskOverview() {
+    const projects = await this.getProjects();
+    const tasks = await  this.getTask();
+    const sorted = [];
+    for (let p of projects) {
+      sorted.push({...p, task: tasks.filter(t => t.project == p.id && !t.done)});
+    }
+    return sorted;
+  }
+
+  async projectById(id) {
+    const projectsAndTasks = await this.getTaskOverview();
+    const selectedProject = projectsAndTasks.filter(p => p.id == id)[0];
+    console.log(selectedProject);
+    return selectedProject;
+  }
+
   private async getProjectAsArray(addInbox = true) {
     const projects = await Storage.get({key: PROJECT_KEY});
     let projectArray = [];
@@ -80,7 +97,7 @@ export class DataService {
     if (addInbox) {
       projectArray.push({
         name: 'inbox',
-        color: '#fffff',
+        color: '#0000ff',
         id: 0,
         task: []
       });

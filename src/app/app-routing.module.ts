@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: 'priority-popover',
     loadChildren: () => import('./pages/priority-popover/priority-popover.module').then( m => m.PriorityPopoverPageModule)
+  },
+  {
+    path: 'project/:id',
+    loadChildren: () => import('./pages/project/project.module').then( m => m.ProjectPageModule)
   }
 ];
 

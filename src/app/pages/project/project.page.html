@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/overview"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{project?.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="project">
+    <ion-item *ngFor="let task of project.task" lines="none">
+      <ion-label slot="start">
+        {{task.name}}
+      <p>{{task.due | date}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

@@ -16,10 +16,12 @@
         <ion-icon name="add" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-item-divider>
-    <ion-item *ngFor="let proj of projects">
+    <ion-item button *ngFor="let proj of projects" [routerLink]="['/project', proj.id]" detail="false">
+      <div class="color-preview-small" slot="start" [style.background]="proj.color"></div>
       <ion-label>
         {{proj.name}}
       </ion-label>
+      <div slot="end">{{proj.task.length}}</div>
     </ion-item>
   </ion-list>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
