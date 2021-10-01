@@ -29,6 +29,7 @@ export class DataService {
 
   async addProject(proj: Project) {
     const projectsArray = await this.getProjectAsArray(false);
+    proj.id = Date.now();
     projectsArray.push(proj);
     await Storage.set({key: PROJECT_KEY, value: JSON.stringify(projectsArray)});
   }
@@ -46,6 +47,28 @@ export class DataService {
 
   async getTask() {
     return this.getTaskAsArray();
+  }
+
+  getPriorities() {
+    const priorities = [
+      {
+        value: 1,
+        color: '#ff0000'
+      },
+      {
+        value: 2,
+        color: '#ff9d46'
+      },
+      {
+        value: 3,
+        color: '#0000ff'
+      },
+      {
+        value: 4,
+        color: '#737373'
+      }
+    ];
+    return priorities;
   }
 
   private async getProjectAsArray(addInbox = true) {

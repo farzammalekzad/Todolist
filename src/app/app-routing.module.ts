@@ -14,6 +14,14 @@ const routes: Routes = [
   {
     path: 'new-project-modal',
     loadChildren: () => import('./pages/new-project-modal/new-project-modal.module').then( m => m.NewProjectModalPageModule)
+  },
+  {
+    path: 'project-popover',
+    loadChildren: () => import('./pages/project-popover/project-popover.module').then( m => m.ProjectPopoverPageModule)
+  },
+  {
+    path: 'priority-popover',
+    loadChildren: () => import('./pages/priority-popover/priority-popover.module').then( m => m.PriorityPopoverPageModule)
   }
 ];
 
